@@ -1,0 +1,81 @@
+Question no 2 
+
+Step 1 :- sudo apt install john
+Step 2 :- run command openssl passwd -6 hello123 > hash.txt
+Step 3 :- run command cat hash.txt
+Step 4 :- run command john hash.txt
+Step 5 :- run command john –show hash.txt 
+
+
+Question no 8 .
+
+🔐 1. Install GPG
+On Linux:
+sudo apt install gnupg
+
+🔑 2. Generate Key Pair (Public + Private Key)
+gpg --full-generate-key
+
+It will ask:
+
+Key type → RSA (choose default)
+Key size → 2048 or 4096 (recommended)
+Expiry → optional
+Name & Email → your identity
+
+👉 After this:
+
+Public key → share with others
+Private key → keep secret
+🔍 3. List Your Keys
+gpg --list-keys
+gpg --list-secret-keys
+📤 4. Export Public Key (to share)
+gpg --export -a "your_email@example.com" > publickey.asc
+📥 5. Import Someone’s Public Key
+gpg --import publickey.asc
+🔒 6. Encrypt a File
+Encrypt for someone else:
+gpg -e -r recipient@email.com file.txt
+
+👉 Output:
+
+file.txt.gpg
+
+✔ Only the recipient can decrypt it.
+
+🔓 7. Decrypt a File
+gpg -d file.txt.gpg
+
+or
+
+gpg -o output.txt -d file.txt.gpg
+
+👉 It will ask for your private key passphrase.
+
+✍️ 8. Digital Signing (Important for Viva)
+🔹 Sign a file:
+gpg --sign file.txt
+
+👉 Creates:
+
+file.txt.gpg
+🔹 Detached signature:
+gpg --detach-sign file.txt
+
+👉 Creates: file.txt.sig
+
+✅ 9. Verify Signature
+gpg --verify file.txt.sig file.txt
+
+👉 Confirms:
+
+File is not modified
+Sender is authentic
+🔐 10. Encrypt + Sign Together
+gpg -e -s -r recipient@email.com file.txt
+
+👉 Provides:
+
+Confidentiality (encryption)
+Authentication (signature)
